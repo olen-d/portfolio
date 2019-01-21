@@ -48,6 +48,7 @@ console.log(userId);
                 "joined": firebase.database.ServerValue.TIMESTAMP,
                 "lastLogin": firebase.database.ServerValue.TIMESTAMP
             }
+            console.log("///--/// ",userId);
             auth.addUser(userId, userData);
         }
     } else {
@@ -63,6 +64,7 @@ const auth = {
 
     addUser(userId, userData) {
         if (!auth.userExists(userId)) {
+            console.log("ADD USER FIRED");
             db.ref(`/users/${userId}`).set(userData, (error) => {
                 (error ? console.log("Errors handled " + error) : console.log("User successfully added to the database. "));
             });
