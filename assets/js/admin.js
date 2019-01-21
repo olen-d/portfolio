@@ -17,7 +17,39 @@ let skillsRef = db.ref("/skills");
 let themesRef = db.ref("themes");
 let usersRef = db.ref("/users");
 
+let displayName = "";
+let photoURL = "";
+let userId = "";
+
 let loginBtn = document.getElementById("login");
+
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in
+        displayName = user.displayName;
+        photoURL = user.photoURL;
+        userId = user.uid;
+
+        let providerData = user.providerData;
+
+        // See if the user exists
+        if (userExists(userId)) {
+            const lastLogin = { lastLogin: firebase.database.ServerValue.TIMESTAMP };
+            db.ref(`/users/${userId}`).set(lastLogin, (error) => {
+                (error ? console.log("Errors handled " + error) : console.log("Last login successfully updated. "));
+            });
+        }
+    } else {
+        // User doesn't exist, add them to the Firebase Users
+        const userData = {
+            "name": displayName,
+            "photo": photoURL,
+            "joined": firebase.database.ServerValue.TIMESTAMP,
+            "lastLogin": firebase.database.ServerValue.TIMESTAMP
+        }
+        addUser(userId, userData);
+    }
+});
 
 const auth = {
     login() {
@@ -37,7 +69,7 @@ const auth = {
         usersRef.child(userId).once("value", (snapshot => {
             let exists = (snapshot.val() !== null);
             return exists;
-        });    
+        }));   
     }
 }
 
@@ -65,29 +97,3 @@ loginBtn.addEventListener("click", () => {
     auth.login();
 });
 
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        // User is signed in
-        hGlobal["displayName"] = user.displayName;
-        hGlobal["photoURL"] = user.photoURL;
-        hGlobal["userId"] = user.uid;
-
-
-        let providerData = user.providerData;
-
-        // See if the user exists
-        if (userExists(hGlobal.userId)) {
-            const lastLogin = { lastLogin: firebase.database.ServerValue.TIMESTAMP };
-            db.ref(`/users/${hGlobal.userId}`).set(lastLogin, (error) => {
-                (error ? console.log("Errors handled " + error) : console.log("Last login successfully updated. "));
-            });
-        } else {
-            // User doesn't exist, add them to the Firebase Users
-            const userData = {
-                "name": hGlobal.displayName,
-                "photo": hGlobal.photoURL,
-                "joined": firebase.database.ServerValue.TIMESTAMP,
-                "lastLogin": firebase.database.ServerValue.TIMESTAMP
-            }
-            addUser(hGlobal.userId, userData);
-        }
