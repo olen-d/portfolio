@@ -21,7 +21,6 @@ let loginBtn = document.getElementById("login");
 
 const auth = {
     login() {
-        alert("bw");
         let provider = new firebase.auth.GithubAuthProvider();
         firebase.auth().signInWithRedirect(provider);
     }
@@ -47,4 +46,6 @@ firebase.auth().getRedirectResult().then(function(result) {
     // ...
 });
 
-loginBtn.addEventListener("click", auth.login());
+loginBtn.addEventListener("click", () => {
+    auth.login();
+});
