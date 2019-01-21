@@ -70,13 +70,14 @@ const auth = {
     userExists(userId) {
         usersRef.child(userId).once("value", (snapshot => {
             let exists = (snapshot.val() !== null);
+            console.log("++--++ ",exists);
             return exists;
         }));   
     }
 }
 
 //  Firebase Authentication
-firebase.auth().getRedirectResult().then(function(result) {
+firebase.auth().getRedirectResult().then((result) => {
     if (result.credential) {
         // This gives you a GitHub Access Token. You can use it to access the GitHub API.
         const token = result.credential.accessToken;
