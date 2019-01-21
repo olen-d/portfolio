@@ -29,7 +29,9 @@ firebase.auth().onAuthStateChanged((user) => {
         displayName = user.displayName;
         photoURL = user.photoURL;
         userId = user.uid;
-
+console.log("---- ", displayName);
+console.log(photoURL);
+console.log(userId);
         let providerData = user.providerData;
 
         // See if the user exists
