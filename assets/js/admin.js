@@ -57,6 +57,8 @@ firebase.auth().onAuthStateChanged((user) => {
         }
     } else {
         //  Not signed in
+        logoutBtn.style.display = "none";
+        loginBtn.style.display = "inline";
     }
 });
 
@@ -67,7 +69,8 @@ const auth = {
     },
 
     logout() {
-        firebase.auth().signOut;
+console.log(";;;;;; LOGOUT fireD")
+        firebase.auth().signOut();
     },
 
     addUser(userId, userData) {
