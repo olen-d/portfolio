@@ -33,7 +33,7 @@ firebase.auth().onAuthStateChanged((user) => {
         let providerData = user.providerData;
 
         // See if the user exists
-        if (userExists(userId)) {
+        if (auth.userExists(userId)) {
             const lastLogin = { lastLogin: firebase.database.ServerValue.TIMESTAMP };
             db.ref(`/users/${userId}`).set(lastLogin, (error) => {
                 (error ? console.log("Errors handled " + error) : console.log("Last login successfully updated. "));
@@ -47,7 +47,7 @@ firebase.auth().onAuthStateChanged((user) => {
             "joined": firebase.database.ServerValue.TIMESTAMP,
             "lastLogin": firebase.database.ServerValue.TIMESTAMP
         }
-        addUser(userId, userData);
+        auth.addUser(userId, userData);
     }
 });
 
