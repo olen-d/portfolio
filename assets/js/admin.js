@@ -23,6 +23,21 @@ const auth = {
     login() {
         let provider = new firebase.auth.GithubAuthProvider();
         firebase.auth().signInWithRedirect(provider);
+    },
+
+    addUser(userId, userData) {
+        if (!auth.userExists(userId)) {
+            db.ref(`/users/${userId}`).set(userData, (error) => {
+                (error ? console.log("Errors handled " + error) : console.log("User successfully added to the database. "));
+            });
+        }
+    },
+
+    userExists(userId) {
+        usersRef.child(userId).once("value", (snapshot => {
+            let exists = (snapshot.val() !== null);
+            return exists;
+        });    
     }
 }
 
@@ -49,3 +64,30 @@ firebase.auth().getRedirectResult().then(function(result) {
 loginBtn.addEventListener("click", () => {
     auth.login();
 });
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        // User is signed in
+        hGlobal["displayName"] = user.displayName;
+        hGlobal["photoURL"] = user.photoURL;
+        hGlobal["userId"] = user.uid;
+
+
+        let providerData = user.providerData;
+
+        // See if the user exists
+        if (userExists(hGlobal.userId)) {
+            const lastLogin = { lastLogin: firebase.database.ServerValue.TIMESTAMP };
+            db.ref(`/users/${hGlobal.userId}`).set(lastLogin, (error) => {
+                (error ? console.log("Errors handled " + error) : console.log("Last login successfully updated. "));
+            });
+        } else {
+            // User doesn't exist, add them to the Firebase Users
+            const userData = {
+                "name": hGlobal.displayName,
+                "photo": hGlobal.photoURL,
+                "joined": firebase.database.ServerValue.TIMESTAMP,
+                "lastLogin": firebase.database.ServerValue.TIMESTAMP
+            }
+            addUser(hGlobal.userId, userData);
+        }
