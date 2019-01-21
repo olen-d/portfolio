@@ -22,16 +22,20 @@ let photoURL = "";
 let userId = "";
 
 let loginBtn = document.getElementById("login");
+let logoutBtn = document.getElementById("logout");
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         // User is signed in
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline";
+
         displayName = user.displayName;
         photoURL = user.photoURL;
         userId = user.uid;
-console.log("---- ", displayName);
-console.log(photoURL);
-console.log(userId);
+//console.log("---- ", displayName);
+//console.log(photoURL);
+//console.log(userId);
         let providerData = user.providerData;
 
         // See if the user exists
@@ -62,6 +66,10 @@ const auth = {
         firebase.auth().signInWithRedirect(provider);
     },
 
+    logout() {
+        firebase.auth().signOut;
+    },
+
     addUser(userId, userData) {
         if (!auth.userExists(userId)) {
             console.log("ADD USER FIRED");
@@ -74,7 +82,7 @@ const auth = {
     userExists(userId) {
         usersRef.child(userId).once("value", (snapshot => {
             let exists = (snapshot.val() !== null);
-console.log("++--++ ",exists);
+//console.log("++--++ ",exists);
             return exists;
         }));   
     }
@@ -100,7 +108,6 @@ firebase.auth().getRedirectResult().then((result) => {
     // ...
 });
 
-loginBtn.addEventListener("click", () => {
-    auth.login();
-});
+loginBtn.addEventListener("click", () => { auth.login(); });
+logoutBtn.addEventListener("click", () => { auth.logout(); });
 
