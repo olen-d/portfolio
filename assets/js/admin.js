@@ -40,16 +40,18 @@ console.log(userId);
             db.ref(`/users/${userId}`).set(lastLogin, (error) => {
                 (error ? console.log("Errors handled " + error) : console.log("Last login successfully updated. "));
             });
+        } else {
+            // User doesn't exist, add them to the Firebase Users
+            const userData = {
+                "name": displayName,
+                "photo": photoURL,
+                "joined": firebase.database.ServerValue.TIMESTAMP,
+                "lastLogin": firebase.database.ServerValue.TIMESTAMP
+            }
+            auth.addUser(userId, userData);
         }
     } else {
-        // User doesn't exist, add them to the Firebase Users
-        const userData = {
-            "name": displayName,
-            "photo": photoURL,
-            "joined": firebase.database.ServerValue.TIMESTAMP,
-            "lastLogin": firebase.database.ServerValue.TIMESTAMP
-        }
-        auth.addUser(userId, userData);
+        //  Not signed in
     }
 });
 
@@ -70,7 +72,7 @@ const auth = {
     userExists(userId) {
         usersRef.child(userId).once("value", (snapshot => {
             let exists = (snapshot.val() !== null);
-            console.log("++--++ ",exists);
+console.log("++--++ ",exists);
             return exists;
         }));   
     }
