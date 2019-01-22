@@ -156,7 +156,7 @@ const data = {
 
             if(sv !== null) {
                 aboutItems.forEach((item) => {
-                    document.getElementById(item).value = `sv.${item}`;
+                    document.getElementById(item).value = sv[item];
                 });
                 // document.getElementById("firstName").value = sv.firstName;
                 // document.getElementById("lastName").value = sv.lastName;
