@@ -13,6 +13,7 @@ retrieveAbout = new Promise ((resolve, reject) => {
         if(sv !== null) {
             aboutItems.forEach((item) => {
                 contextString += `"${item}:` + sv[item] + ", ";
+                console.log("------ ",contextString);
             });
             contextString = contextString.slice(0,-2);
             contextString += "}";
