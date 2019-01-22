@@ -4,7 +4,7 @@ let imagePage = document.getElementById("portfolio-page");
 let contextString = "{";
 
 
-retrieveAbout = new promise ((resolve, reject) => {
+retrieveAbout = new Promise ((resolve, reject) => {
     let ref = db.ref(`/about/${userId}`)
         
     ref.once("value", function(snapshot) {
