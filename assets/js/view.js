@@ -14,10 +14,10 @@ retrieveAbout = new Promise ((resolve, reject) => {
             aboutItems.forEach((item) => {
                 contextString += `"${item}:` + sv[item] + ", ";
             });
+            contextString = contextString.slice(0,-2);
+            contextString += "}";
         }
-        contextString = contextString.slice(0,-2);
-        contextString += "}";
-        });
+    }); 
     resolve(contextString);
 
     // Handle any errors
