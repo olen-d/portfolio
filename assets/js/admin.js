@@ -20,9 +20,30 @@ let usersRef = db.ref("/users");
 let displayName = "";
 let photoURL = "";
 let userId = "";
+let currentGroup = "";
 
-let loginBtn = document.getElementById("login");
-let logoutBtn = document.getElementById("logout");
+let loginBtn = document.getElementById("loginBtn");
+let logoutBtn = document.getElementById("logoutBtn");
+let aboutBtn = document.getElementById("aboutBtn");
+let projectsBtn = document.getElementById("projectsBtn");
+let skillsBtn = document.getElementById("skillsBtn");
+let themesBtn = document.getElementById("themesBtn");
+
+let aboutItems = [
+    "firstName",
+    "lastName",
+    "title",
+    "email",
+    "tel",
+    "address",
+    "street",
+    "city",
+    "state",
+    "zip",
+    "bio"
+];
+
+const aboutData = new Object();
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -69,7 +90,7 @@ const auth = {
     },
 
     logout() {
-console.log(";;;;;; LOGOUT fireD")
+//console.log(";;;;;; LOGOUT fireD")
         firebase.auth().signOut();
     },
 
@@ -111,6 +132,91 @@ firebase.auth().getRedirectResult().then((result) => {
     // ...
 });
 
+const admin = {
+    showGroup(group) {
+        if(currentGroup != "")
+            {
+                admin.hideGroup(currentGroup);
+            }
+        document.getElementById(group).style.display = "block";
+        currentGroup = group;
+    },
+
+    hideGroup(group) {
+        document.getElementById(group).style.display = "none";
+    }
+}
+
+const data = {
+    retrieveAbout() {
+        let ref = db.ref(`/about/${userId}`)
+        
+        ref.once("value", function(snapshot) {
+            let sv = snapshot.val();
+
+            if(sv !== null) {
+                aboutItems.forEach((item) => {
+                    document.getElementById(item).value = sv.item;
+                });
+                // document.getElementById("firstName").value = sv.firstName;
+                // document.getElementById("lastName").value = sv.lastName;
+                // document.getElementById("title").value = sv.title;
+                // document.getElementById("email").value = sv.email;
+                // document.getElementById("tel").value = sv.tel;
+                // document.getElementById("address").value = sv.address;
+                // document.getElementById("street").value = sv.street;
+                // document.getElementById("city").value = sv.city;
+                // document.getElementById("state").value = sv.state;
+                // document.getElementById("zip").value = sv.zip;
+                // document.getElementById("bio").value = sv.bio;
+            }
+
+        // Handle any errors
+        }, (errorObject) => {
+            console.log("Errors handled: " + errorObject.code);
+        });        
+    },
+    
+    updateAbout() {
+        // Update the Database
+        if(validate.aboutForm()) {
+            let ref = db.ref(`/about/${userId}`)
+
+            aboutItems.forEach((key) => { //console.log("--- ",key); console.log("+++ ", document.getElementById("firstName"));
+                value = document.getElementById(key).value.trim();
+                aboutData[key] = value;
+            });
+
+            aboutData["dateUpdated"] = firebase.database.ServerValue.TIMESTAMP;
+
+            ref.set(aboutData, (error) => {
+                (error ? console.log("Errors handled " + error) : console.log("Train successfully updated in the database. "));
+            });
+
+            // Clean up
+            //document.getElementById("aboutForm").reset();
+        }
+    },
+}
+
+const validate = {
+    aboutForm() {
+        return true;
+        // TODO:    Set this up to actually validate the form in a robust manner in the future
+        //          Currently using built-in HTML 5 validation, which is very okay
+    }
+}
+
+// Event Listeners
 loginBtn.addEventListener("click", () => { auth.login(); });
 logoutBtn.addEventListener("click", () => { auth.logout(); });
 
+aboutBtn.addEventListener("click", () => { 
+    admin.showGroup("about"); 
+    data.retrieveAbout();
+});
+
+aboutSubmit.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    data.updateAbout(); 
+});
