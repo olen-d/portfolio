@@ -29,6 +29,7 @@ retrieveAbout = new promise ((resolve, reject) => {
 
 retrieveAbout
     .then((contextString) => {
+        console.log("[[[]]] ",contextString);
         let context = JSON.parse(contextString);
         let html = template(context);
     });

@@ -36,6 +36,9 @@ let aboutItems = [
     "bio"
 ];
 
+let loginBtn = document.getElementById("loginBtn");
+let logoutBtn = document.getElementById("logoutBtn");
+
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         // User is signed in

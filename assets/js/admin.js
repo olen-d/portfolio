@@ -1,23 +1,7 @@
-let loginBtn = document.getElementById("loginBtn");
-let logoutBtn = document.getElementById("logoutBtn");
 let aboutBtn = document.getElementById("aboutBtn");
 let projectsBtn = document.getElementById("projectsBtn");
 let skillsBtn = document.getElementById("skillsBtn");
 let themesBtn = document.getElementById("themesBtn");
-
-let aboutItems = [
-    "firstName",
-    "lastName",
-    "title",
-    "email",
-    "tel",
-    "address",
-    "street",
-    "city",
-    "state",
-    "zip",
-    "bio"
-];
 
 const aboutData = new Object();
 
