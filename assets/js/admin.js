@@ -2,14 +2,16 @@ let aboutBtn = document.getElementById("aboutBtn");
 let projectsBtn = document.getElementById("projectsBtn");
 let skillsBtn = document.getElementById("skillsBtn");
 let themesBtn = document.getElementById("themesBtn");
-
 let dbUpdatedOkBtn = document.getElementById("db-updated-ok");
 
+let currentGroup = "none";
+
 const aboutData = new Object();
+const projectData = new Object();
 
 const admin = {
     showGroup(group) {
-        if(currentGroup != "")
+        if(currentGroup != "none") 
             {
                 admin.hideGroup(currentGroup);
             }
@@ -19,6 +21,7 @@ const admin = {
 
     hideGroup(group) {
         document.getElementById(group).style.display = "none";
+        currentGroup = "none";
     }
 }
 
@@ -66,10 +69,48 @@ const data = {
             });
         }
     },
+
+    retrieveProject() {
+
+    },
+
+    addProject() {
+        if(validate.projectForm()) {
+            let ref = db.ref(`/projects/${userId}`)
+
+            projectItems.forEach((key) => {
+                value = document.getElementById(key).value.trim();
+                projectData[key] = value;
+            })
+
+            
+            // Handle errors 
+            ref.push(projectData, (error) => {
+                (error ? console.log("Errors handled " + error) : console.log("Project successfully added to the database. "));
+            });
+
+            // Clean up
+            document.getElementById("projectForm").reset();
+        }
+    },
+
+    editProject() {
+
+    },
+
+    updateProject() {
+
+    }
 }
 
 const validate = {
     aboutForm() {
+        return true;
+        // TODO:    Set this up to actually validate the form in a robust manner in the future
+        //          Currently using built-in HTML 5 validation, which is very okay
+    },
+
+    projectForm() {
         return true;
         // TODO:    Set this up to actually validate the form in a robust manner in the future
         //          Currently using built-in HTML 5 validation, which is very okay
@@ -88,4 +129,14 @@ aboutBtn.addEventListener("click", () => {
 aboutSubmit.addEventListener("click", (e) => {
     e.preventDefault(); 
     data.updateAbout(); 
+});
+
+projectsBtn.addEventListener("click", () => { 
+    admin.showGroup("projects"); 
+    data.retrieveAbout();
+});
+
+projectAdd.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    data.addProject(); 
 });

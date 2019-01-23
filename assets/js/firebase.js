@@ -20,7 +20,6 @@ let usersRef = db.ref("/users");
 let displayName = "";
 let photoURL = "";
 let userId = "";
-let currentGroup = "";
 
 let aboutItems = [
     "firstName",
@@ -34,4 +33,12 @@ let aboutItems = [
     "state",
     "zip",
     "bio"
+];
+
+let projectItems = [
+    "screenshot",
+    "projectTitle",
+    "description",
+    "deployedLink",
+    "repoLink"
 ];
