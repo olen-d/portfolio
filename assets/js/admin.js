@@ -3,6 +3,8 @@ let projectsBtn = document.getElementById("projectsBtn");
 let skillsBtn = document.getElementById("skillsBtn");
 let themesBtn = document.getElementById("themesBtn");
 
+let dbUpdatedOkBtn = document.getElementById("db-updated-ok");
+
 const aboutData = new Object();
 
 const admin = {
@@ -55,7 +57,11 @@ const data = {
             });
 
             // Clean up
-            //document.getElementById("aboutForm").reset();
+            du = document.getElementById("db-updated");
+            du.showModal();
+            document.getElementById("aboutForm").reset();
+            dbUpdatedOkBtn.addEventListener("click", () => { du.close(); });
+            hideGroup("about");
         }
     },
 }
