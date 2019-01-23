@@ -1,39 +1,57 @@
 let source = document.getElementById("portfolio-template").innerHTML; 
 let template = Handlebars.compile(source);
 let imagePage = document.getElementById("portfolio-page"); 
+
 let contextString = "{";
 
+userId = "aTSIOrIboZWVaYv5RUwMWbbpZbx1";
 
-retrieveAbout = new Promise ((resolve, reject) => {
+
     let ref = db.ref(`/about/${userId}`)
         
-    ref.once("value", function(snapshot) {
+    ref.once("value").then(function(snapshot) {
         let sv = snapshot.val();
 
         if(sv !== null) {
-            aboutItems.forEach((item) => {
-                contextString += `"${item}:` + sv[item] + ", ";
-                console.log("[[]]]]", userId, "------ ",contextString);
+            const aboutPromise = new Promise((resolve,reject) => {
+                aboutItems.forEach((item) => {
+                    contextString += `"${item}":` + `"${sv[item]}", `;
+    //console.log("[[]]]]", userId, "------ ",contextString);
+                });
+                if(contextString.length > 1) {
+                    resolve(contextString);
+                } else {
+                    reject(Error(500));
+                }
             });
-            contextString = contextString.slice(0,-2);
-            contextString += "}";
+
+            aboutPromise.then((result) => {
+                contextString = result.slice(0,-2);
+                contextString += "}";
+            });
         }
-    }); 
-    resolve(contextString);
+    });
+            
+
+
 
     // Handle any errors
-    }, (errorObject) => {
-        console.log("Errors handled: " + errorObject.code);
-    reject("Fail");
-});  
+    // }, (errorObject) => {
+    //     console.log("Errors handled: " + errorObject.code);
+    // reject("Fail");
+// });  
 
 
-retrieveAbout
-    .then((contextString) => {
-        console.log("[[[]]] ",contextString);
-        let context = JSON.parse(contextString);
-        let html = template(context);
-    });
+// retrieveAbout
+//     .then((contextString) => {
+//         console.log("[[[]]] ",contextString);
+//         let context = JSON.parse(contextString);
+//         let html = template(context);
+//     });
 
-
-
+setTimeout(() => {
+//console.log("[[[]]] ",contextString);
+    let context = JSON.parse(contextString);
+    let html = template(context);
+    imagePage.innerHTML += html
+},2000);
