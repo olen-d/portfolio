@@ -60,8 +60,10 @@ const data = {
             du = document.getElementById("db-updated");
             du.showModal();
             document.getElementById("aboutForm").reset();
-            dbUpdatedOkBtn.addEventListener("click", () => { du.close(); });
-            admin.hideGroup("about");
+            dbUpdatedOkBtn.addEventListener("click", () => { 
+                du.close(); 
+                admin.hideGroup("about");
+            });
         }
     },
 }
