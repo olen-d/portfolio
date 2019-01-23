@@ -53,7 +53,7 @@ const data = {
             aboutData["dateUpdated"] = firebase.database.ServerValue.TIMESTAMP;
 
             ref.set(aboutData, (error) => {
-                (error ? console.log("Errors handled " + error) : console.log("Train successfully updated in the database. "));
+                (error ? console.log("Errors handled " + error) : console.log("About me successfuly updated in the database. "));
             });
 
             // Clean up
@@ -61,7 +61,7 @@ const data = {
             du.showModal();
             document.getElementById("aboutForm").reset();
             dbUpdatedOkBtn.addEventListener("click", () => { du.close(); });
-            hideGroup("about");
+            admin.hideGroup("about");
         }
     },
 }
