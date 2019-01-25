@@ -10,6 +10,10 @@ em {
     color:#fcc914;
 }
 
+i:hover {
+    color: #36a0ce;
+}
+
 .extra-color {
     color: #36a0ce;
 }
