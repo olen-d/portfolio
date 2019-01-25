@@ -98,12 +98,12 @@ const data = {
     },
 
     retrieveProject(projId) {
-        let ref = db.ref(`/about/${userId}/${projId}`)
-        alert(projId);
+        let ref = db.ref(`/projects/${userId}/${projId}`)
+
         ref.once("value", (snapshot) => {
             let sv = snapshot.val();
 
-            if(sv !== null) { alert("NotNull");
+            if(sv !== null) {
                 projectItems.forEach((item) => { console.log("-- ",item)
                     document.getElementById(item).value = sv[item];
                 });
