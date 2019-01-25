@@ -25,13 +25,13 @@ refAbout.once("value").then((snapshot) => {
     aboutPromise.then((result) => {
         let refProjects = db.ref(`/projects/${userId}`)
         refProjects.once("value").then((snapshot) => {
-            let sk = snapshot.ref.key
+            //let sk = snapshot.ref.key
             let psv = snapshot.val();
             contextString += `"projects: {"`
             projectItems.forEach((item) => {
                 contextString += `"${item}": ` + `"${psv[item]}", `
                 //console.log(sk);
-                console.log(`"${item}": ` + `"${sk[psv][item]}", `);
+                console.log(`"${item}": ` + `"${psv[item]}", `);
             });
         });
         
