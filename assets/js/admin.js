@@ -175,7 +175,7 @@ aboutSubmit.addEventListener("click", (e) => {
 
 projectsBtn.addEventListener("click", () => { 
     admin.showGroup("projects"); 
-    data.retrieveAbout();
+    data.retrieveProjects();
 });
 
 projectAdd.addEventListener("click", (e) => {
