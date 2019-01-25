@@ -60,7 +60,7 @@ const data = {
             });
 
             // Clean up
-            du = document.getElementById("db-updated");
+            du = document.getElementById("db-updated"); console.log(du);
             du.showModal();
             document.getElementById("aboutForm").reset();
             dbUpdatedOkBtn.addEventListener("click", () => { 
@@ -82,39 +82,36 @@ const data = {
             let newRow = `<tr id=\"${sk}\" class="project-row"><th scope=\"row\" class=\"project\" >${sv.projectTitle}</th><td><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
             tb.insertAdjacentHTML("beforeend",newRow);
             
-            //  Event listener to delete train
-           // loginBtn.addEventListener("click", () => { auth.login(); });
-        //    document.getElementById("projects-table").addEventListener("click", function (event) {
-        //     if (event.target && event.target.nodeName == "I") {
-                //alert(event.target.nodeName);
-                //console.log(this);
-                
-            //   data.editProject(this);
-            // }
+            //  Event listeners to edit or delete project
             document.querySelector("#projects-table").addEventListener("click", function(event) {
-                console.log("--- ",event.target.classList);
                 if(event.target.classList.contains("edit")) {
-                    alert(event.target.dataset.id);
+                    data.editProject(event.target.dataset.id);
+                } else if (event.target.classList.contains("delete")) {
+                    data.deleteProject(event.target.dataset.id);
                 }
-                
             });
 
-            // $(`#${sk} .delete`).on("click", function () {
-            //     trainSchedules.deleteTrain(this);
-            // });
-
-            // Event listener to edit train
-            // $(`#${sk} .edit`).on("click", function () {
-            //     trainSchedules.editTrain(this);
-            // });
-            
-            // Store train keys for the updates
-            // trains.push(sk);
-            
             // Handle the errors
           }, (errorObject) => {
             console.log("Errors handled: " + errorObject.code);
         });
+    },
+
+    retrieveProject(projId) {
+        let ref = db.ref(`/about/${userId}/${projId}`)
+        
+        ref.once("value", (snapshot) => {
+            let sv = snapshot.val();
+
+            if(sv !== null) {
+                projectItems.forEach((item) => {
+                    document.getElementById(item).value = sv[item];
+                });
+            }
+        // Handle any errors
+        }, (errorObject) => {
+            console.log("Errors handled: " + errorObject.code);
+        });                
     },
 
     addProject() {
@@ -137,12 +134,17 @@ const data = {
         }
     },
 
-    editProject(jsttiyo) {
-        alert("doritos");
+    editProject(projId) {
+        document.getElementById("project-form-h").innerText = "Edit Project";
+        data.retrieveProject(projId);
     },
 
     updateProject() {
 
+    },
+
+    deleteProject(projId) {
+        // alert("delete" + projId);
     }
 }
 
