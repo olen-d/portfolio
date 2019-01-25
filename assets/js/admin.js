@@ -73,31 +73,32 @@ const data = {
     retrieveProjects() {
         let tb = document.getElementById("projects-table");
         let ref = db.ref(`/projects/${userId}`)
-
-        // ref.once("value", (snapshot) => {
-        //     let sv = snapshot.val();
-
-        //     if(sv !== null) {
-        //         projectItems.forEach((item) => {
-        //             tb.appendChild(`<tr></tr>`);
-        //            //append to table
-        //         });
-        //     }
-        // // Handle any errors
-        // }, (errorObject) => {
-        //     console.log("Errors handled: " + errorObject.code);
-        // });        
+        
         ref.orderByChild("projectTitle").on("child_added", (snapshot) => {
 
             let sv = snapshot.val();
             let sk = snapshot.ref.key;
             
-            let newRow = `<tr id=\"${sk}\"><th scope=\"row\" class=\"projectTitle\" >${sv.projectTitle}</th><td><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
+            let newRow = `<tr id=\"${sk}\" class="project-row"><th scope=\"row\" class=\"project\" >${sv.projectTitle}</th><td><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
             tb.insertAdjacentHTML("beforeend",newRow);
             
-            //$("#trains").append(newRow);
-
             //  Event listener to delete train
+           // loginBtn.addEventListener("click", () => { auth.login(); });
+        //    document.getElementById("projects-table").addEventListener("click", function (event) {
+        //     if (event.target && event.target.nodeName == "I") {
+                //alert(event.target.nodeName);
+                //console.log(this);
+                
+            //   data.editProject(this);
+            // }
+            document.querySelector("#projects-table").addEventListener("click", function(event) {
+                console.log("--- ",event.target.classList);
+                if(event.target.classList.contains("edit")) {
+                    alert(event.target.dataset.id);
+                }
+                
+            });
+
             // $(`#${sk} .delete`).on("click", function () {
             //     trainSchedules.deleteTrain(this);
             // });
@@ -113,7 +114,7 @@ const data = {
             // Handle the errors
           }, (errorObject) => {
             console.log("Errors handled: " + errorObject.code);
-          });
+        });
     },
 
     addProject() {
@@ -136,8 +137,8 @@ const data = {
         }
     },
 
-    editProject() {
-
+    editProject(jsttiyo) {
+        alert("doritos");
     },
 
     updateProject() {
