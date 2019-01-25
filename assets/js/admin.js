@@ -94,6 +94,7 @@ const data = {
             
             let newRow = `<tr id=\"${sk}\"><th scope=\"row\" class=\"projectTitle\" >${sv.projectTitle}</th><td><a href=\"#edit-train\"><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></a></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
             tb.appendChild(newRow);
+            console.log("--- ",newRow);
             //$("#trains").append(newRow);
 
             //  Event listener to delete train
