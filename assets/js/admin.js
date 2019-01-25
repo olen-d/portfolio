@@ -97,7 +97,7 @@ const data = {
         });
     },
 
-    retrieveProject(projId) {
+    retrieveProject(projId) { alert(`/about/${userId}/${projId}`);
         let ref = db.ref(`/about/${userId}/${projId}`)
         
         ref.once("value", (snapshot) => {
