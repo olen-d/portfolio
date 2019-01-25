@@ -98,8 +98,8 @@ const data = {
     },
 
     retrieveProject(projId) {
-        let ref = db.ref(`/about/${userId}`)
-        
+        let ref = db.ref(`/about/${userId}/${projId}`)
+        alert(projId);
         ref.once("value", (snapshot) => {
             let sv = snapshot.val();
 
