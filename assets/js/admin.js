@@ -97,14 +97,14 @@ const data = {
         });
     },
 
-    retrieveProject(projId) { alert(`/about/${userId}/${projId}`);
+    retrieveProject(projId) {
         let ref = db.ref(`/about/${userId}/${projId}`)
         
         ref.once("value", (snapshot) => {
             let sv = snapshot.val();
 
             if(sv !== null) {
-                projectItems.forEach((item) => {
+                projectItems.forEach((item) => { console.log("-- ",item)
                     document.getElementById(item).value = sv[item];
                 });
             }
