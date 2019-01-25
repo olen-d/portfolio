@@ -73,7 +73,7 @@ const data = {
     retrieveProjects() {
         let tb = document.getElementById("projects-table");
         let ref = db.ref(`/projects/${userId}`)
-        
+        alert(userId);
         // ref.once("value", (snapshot) => {
         //     let sv = snapshot.val();
 
@@ -93,7 +93,7 @@ const data = {
             let sk = snapshot.ref.key;
             
             let newRow = `<tr id=\"${sk}\"><th scope=\"row\" class=\"projectTitle\" >${sv.projectTitle}</th><td><a href=\"#edit-train\"><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></a></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
-            tb.appendChild(newRow);
+            tb.insertAdjacentHTML(newRow);
             console.log("--- ",newRow);
             //$("#trains").append(newRow);
 
