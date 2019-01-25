@@ -22,7 +22,16 @@ const admin = {
     hideGroup(group) {
         document.getElementById(group).style.display = "none";
         currentGroup = "none";
+    },
+
+    show(element) {
+        document.getElementById(element).style.display = "block";
+    },
+
+    hide(element) {
+        document.getElementById(element).style.display = "none";
     }
+
 }
 
 const data = {
@@ -104,7 +113,7 @@ const data = {
             let sv = snapshot.val();
 
             if(sv !== null) {
-                projectItems.forEach((item) => { console.log("-- ",item)
+                projectItems.forEach((item) => {
                     document.getElementById(item).value = sv[item];
                 });
             }
@@ -136,11 +145,13 @@ const data = {
 
     editProject(projId) {
         document.getElementById("project-form-h").innerText = "Edit Project";
+        admin.hide("projectAdd");
+        admin.show("projectUpdate");
         data.retrieveProject(projId);
     },
 
     updateProject() {
-
+alert("update project");
     },
 
     deleteProject(projId) {
@@ -184,4 +195,9 @@ projectsBtn.addEventListener("click", () => {
 projectAdd.addEventListener("click", (e) => {
     e.preventDefault(); 
     data.addProject(); 
+});
+
+projectUpdate.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    data.updateProject(); 
 });

@@ -20,3 +20,7 @@ i:hover {
 .nav-bar {
     margin-top: 3rem;
 }
+
+#projectUpdate {
+    display: none;
+}
