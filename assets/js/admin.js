@@ -29,7 +29,7 @@ const data = {
     retrieveAbout() {
         let ref = db.ref(`/about/${userId}`)
         
-        ref.once("value", function(snapshot) {
+        ref.once("value", (snapshot) => {
             let sv = snapshot.val();
 
             if(sv !== null) {
@@ -70,8 +70,49 @@ const data = {
         }
     },
 
-    retrieveProject() {
+    retrieveProjects() {
+        let tb = document.getElementById("projects-table");
+        let ref = db.ref(`/projects/${userId}`)
+        
+        // ref.once("value", (snapshot) => {
+        //     let sv = snapshot.val();
 
+        //     if(sv !== null) {
+        //         projectItems.forEach((item) => {
+        //             tb.appendChild(`<tr></tr>`);
+        //            //append to table
+        //         });
+        //     }
+        // // Handle any errors
+        // }, (errorObject) => {
+        //     console.log("Errors handled: " + errorObject.code);
+        // });        
+        ref.orderByChild("projectTitle").on("child_added", (snapshot) => {
+
+            let sv = snapshot.val();
+            let sk = snapshot.ref.key;
+            
+            let newRow = `<tr id=\"${sk}\"><th scope=\"row\" class=\"projectTitle\" >${sv.projectTitle}</th><td><a href=\"#edit-train\"><i class=\"fas fa-edit edit\" data-id=\"${sk}\"></i></a></td><td><i class=\"fas fa-times delete\" data-id=\"${sk}\" ></i></td></tr>`;
+            tb.appendChild(newRow);
+            //$("#trains").append(newRow);
+
+            //  Event listener to delete train
+            // $(`#${sk} .delete`).on("click", function () {
+            //     trainSchedules.deleteTrain(this);
+            // });
+
+            // Event listener to edit train
+            // $(`#${sk} .edit`).on("click", function () {
+            //     trainSchedules.editTrain(this);
+            // });
+            
+            // Store train keys for the updates
+            // trains.push(sk);
+            
+            // Handle the errors
+          }, (errorObject) => {
+            console.log("Errors handled: " + errorObject.code);
+          });
     },
 
     addProject() {
