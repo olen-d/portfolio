@@ -24,10 +24,12 @@ refAbout.once("value").then((snapshot) => {
 
     aboutPromise.then((result) => {
         let refProjects = db.ref(`/projects/${userId}`)
-        refProjects.once.orderByChild("projectTitle").on("child_added", (snapshot) => {
+        refProjects.orderByChild("projectTitle").on("child_added", (snapshot) => {
             //let sk = snapshot.ref.key
             let psv = snapshot.val();
             contextString += `"projects: {"`
+
+            //const projectsPromise
             projectItems.forEach((item) => {
                 contextString += `"${item}": ` + `"${psv[item]}", `
                 //console.log(sk);
