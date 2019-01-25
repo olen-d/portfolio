@@ -31,7 +31,7 @@ refAbout.once("value").then((snapshot) => {
             projectItems.forEach((item) => {
                 contextString += `"${item}": ` + `"${psv[item]}", `
                 //console.log(sk);
-                console.log(`"${item}": ` + `"${psv[item]}", `);
+                console.log(`"${item}": ` + `"${sk[psv][item]}", `);
             });
         });
         
