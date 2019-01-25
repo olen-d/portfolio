@@ -103,7 +103,7 @@ const data = {
         ref.once("value", (snapshot) => {
             let sv = snapshot.val();
 
-            if(sv !== null) {
+            if(sv !== null) { alert("NotNull");
                 projectItems.forEach((item) => { console.log("-- ",item)
                     document.getElementById(item).value = sv[item];
                 });
