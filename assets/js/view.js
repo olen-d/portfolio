@@ -24,7 +24,7 @@ refAbout.once("value").then((snapshot) => {
 
     aboutPromise.then((result) => {
         let refProjects = db.ref(`/projects/${userId}`)
-        ref.orderByChild("projectTitle").on("child_added").then((snapshot) => {
+        refProjects.orderByChild("projectTitle").on("child_added").then((snapshot) => {
             //let sk = snapshot.ref.key
             let psv = snapshot.val();
             contextString += `"projects: {"`
