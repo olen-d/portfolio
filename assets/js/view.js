@@ -41,3 +41,18 @@ refProjects.orderByChild("projectTitle").on("value", (snapshot) => {
     let html = template(context);
     imagePage.innerHTML += html
 });
+
+//  *******************
+//  Handlebars Helpers
+
+//  Phone Number Formatter
+Handlebars.registerHelper("formatTel", function(tel, format) {
+    // Eventually offer a number of formats, but just one for now
+    switch (format) {
+      default:
+      case "usStandard":
+        let match = tel.match(/^(\d{3})(\d{3})(\d{4})$/)
+        return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+        break;
+    }
+  });

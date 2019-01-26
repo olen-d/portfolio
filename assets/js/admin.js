@@ -201,3 +201,8 @@ projectUpdate.addEventListener("click", (e) => {
     e.preventDefault(); 
     data.updateProject(); 
 });
+
+socialBtn.addEventListener("click", () => { 
+    admin.showGroup("social"); 
+    data.retrieveSocial();
+});
