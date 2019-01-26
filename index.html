@@ -64,8 +64,39 @@
             &nbsp;
           </div>
         </div>
+        <div class="row">
+          <div class="one column">
+            &nbsp;
+          </div>
+          <div class="ten columns">
+            {{#each projects}}
+              <div class="card u-pull-left">
+                <div class="card-title">
+                    <img src="{{screenshot}}" width="350" height="auto" alt="Screenshot of {{projectTitle}}">
+                    <h2>{{projectTitle}}</h2>
+                    <p>{{description}}</p>
+                    <p><a href="{{deployedLink}}">Visit the project</a>.</p>
+                    <p><a href="{{repoLink}}">See the code on Github</a>.</p>
+                </div>
+              </div>
+            {{~/each}}
+          </div>
+          <div class="one column">
+            &nbsp;
+          </div>
+        </div>
+        <div clas="row">
+          <div class="one column">
+            &nbsp;
+          </div>
+          <div class="ten columns">
+            <h1>Get in Touch
+          </div>
+          <div class="one column">
+            &nbsp;
+          </div>
+        </div>
       </div>
-
     <!-- End Document
       –––––––––––––––––––––––––––––––––––––––––––––––––– --> 
     </body>
