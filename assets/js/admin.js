@@ -156,6 +156,10 @@ alert("update project");
 
     deleteProject(projId) {
         // alert("delete" + projId);
+    },
+
+    retrieveSocial() {
+
     }
 }
 
@@ -202,7 +206,7 @@ projectUpdate.addEventListener("click", (e) => {
     data.updateProject(); 
 });
 
-socialBtn.addEventListener("click", () => { 
+socialBtn.addEventListener("click", () => {
     admin.showGroup("social"); 
     data.retrieveSocial();
 });
