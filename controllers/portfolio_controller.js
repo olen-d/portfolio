@@ -22,8 +22,9 @@ const path = require("path");
 router.get("/", (req, res) => {
     portfolio.all((data) => {
         let hbsObj = {
-            portfolio : data
+            all : data
         };
+        //console.log(hbsObj);
         res.render("index", hbsObj);
     });
 });

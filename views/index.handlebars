@@ -1,4 +1,4 @@
-{{#each portfolio}}
+{{#each all.about}}
     <div class="container">
         <div class="row">
             <div class="one column">
@@ -29,7 +29,7 @@
             &nbsp;
           </div>
           <div class="ten columns">
-            {{#each projects}}
+            {{#each ../all.projects}}
               <div class="card u-pull-left">
                 <div class="card-title">
                     <img src="{{screenshot}}" width="350" height="auto" alt="Screenshot of {{projectTitle}}">
