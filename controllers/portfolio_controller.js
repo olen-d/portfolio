@@ -66,6 +66,7 @@ let mailOptions = {
 
 transporter.sendMail(mailOptions, (err, success) => {
     if (err) {
+        res.json({"error: ", err});
         console.log("An error sending the email ocurred.", err);
     } else {
         res.json(success);

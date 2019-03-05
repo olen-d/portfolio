@@ -29,6 +29,7 @@ const ajax = {
         xhr.onload = () => {
             if (xhr.status === 200) {
                 let jData = JSON.parse(xhr.responseText);
+                console.log(jData.error);
 
                 // Clear the form fields
                 document.getElementById("name").value = "";
