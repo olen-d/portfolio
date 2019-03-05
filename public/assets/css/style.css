@@ -43,3 +43,7 @@ i:hover {
     margin-left: 3rem;
 
 }
+
+#message-status {
+    display:none;
+}

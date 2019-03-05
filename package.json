@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/olen-d/portfolio#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.1",
-    "firebase-admin": "^7.0.0"
-  }
+    "firebase-admin": "^7.0.0",
+    "nodemailer": "^5.1.1"
+  },
+  "devDependencies": {}
 }
