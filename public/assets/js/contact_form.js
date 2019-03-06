@@ -3,6 +3,10 @@ const btnListener = {
     add (elem) {
         elem.addEventListener("click", function (e) {
             e.preventDefault();
+
+            let msgStatus = document.getElementById("message-status");
+            msgStatus.innerHTML = "<p>Sending your message...</p>";
+
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
             let message = document.getElementById("message").value;
@@ -31,13 +35,17 @@ const ajax = {
                 let jData = JSON.parse(xhr.responseText);
                 // console.log(jData.error);
 
+                let msgStatus = document.getElementById("message-status");
+
+                // Clear the message status
+                msgStatus.innerHTML = "";
+
                 // Clear the form fields
                 document.getElementById("name").value = "";
                 document.getElementById("email").value = "";
                 document.getElementById("message").value = "";
 
                 // Build & output the success message
-                let msgStatus = document.getElementById("message-status");
                 let p = document.createElement("p");
 
                 p.setAttribute("class", "success");
