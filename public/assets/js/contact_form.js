@@ -6,6 +6,7 @@ const btnListener = {
 
             let msgStatus = document.getElementById("message-status");
             msgStatus.innerHTML = "<p>Sending your message...</p>";
+            msgStatus.style.display = "block";
 
             let name = document.getElementById("name").value;
             let email = document.getElementById("email").value;
