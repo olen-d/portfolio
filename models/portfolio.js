@@ -13,17 +13,23 @@ const portfolio = {
   },
 
   about(cb) {
-    const aboutRef = db.ref("/about");
-    aboutRef.once("value", (snapshot) => {
-        cb(snapshot.val());
+    //console.log(db.about.find({userName: "olen.d"}));
+    db.about.find({userName: "olen.d"}, (err, data) => {
+      if(err) {
+        throw err;
+      } else {
+        cb(data);
+      }
     });
   },
 
   projects(cb) {
-    const projectsRef = db.ref("/projects");
-    projectsRef.on("child_added", (snapshot, prevChildKey) => {
-      const projects = snapshot.val();
-      cb(snapshot.val());
+    db.projects.find({show: 1}, (err, data) => {
+      if (err) {
+        throw err;
+      } else {
+        cb(data);
+      }
     });
   }
 }
